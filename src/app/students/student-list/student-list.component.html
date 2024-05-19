@@ -1,0 +1,48 @@
+  <table class="table border-collapse w-full mt-5" *ngIf="students.length > 0; else noDataAvailable">
+    <thead>
+      <tr class="bg-blue-400">
+          <th class="text-xl font-extrabold text-blue-900 border-2 border-black">#</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Prénom</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Nom</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Date Nais</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Email</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Adresse</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Num Tel</th>
+          <th class="text-lg font-bold uppercase text-blue-900 border-2 border-black">Action</th>
+      </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let student of students; let i = index">
+      <tr class="border-2 border-black {{ i % 2 === 0 ? 'bg-blue-100' : 'bg-blue-200' }}">
+              <td class="border-2 border-black font-bold text-blue-900">{{student.id}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.first_name}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.last_name}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.date_of_birth}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.email}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.address}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">{{student.phone_number}}</td>
+              <td class="border-2 border-black text-blue-900 font-medium">
+                  <div class="inline-block text-center w-full rounded-sm p-1">
+                      <button class="bg-blue-500 text-white font-bold w-full shadow-sm shadow-white hover:ring hover:ring-blue-950 rounded-sm" type="button" id="dropdownMenuButton"
+                          aria-expanded="false" (click)="toggleDropdown(student.id)">
+                          Action
+                      </button>
+                      <nav *ngIf="selectedStudentId === student.id" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg shadow-gray-800 bg-white ring-1 ring-black ring-opacity-5"
+                          role="menu" >
+                              <a class="text-blue-700 hover:text-white hover:font-semibold hover:bg-blue-500 block px-4 py-2 w-full cursor-pointer" (click)="editStudent(student.id)">Modifier</a>
+                              <a class="text-blue-700 hover:text-white hover:font-semibold hover:bg-red-500 block px-4 py-2 w-full cursor-pointer" (click)="deleteStudent(student.id)">Supprimer</a>
+                              <a class="text-blue-700 hover:text-white hover:font-semibold hover:bg-green-500 block px-4 py-2 w-full cursor-pointer" (click)="detailStudent(student.id)">Détails</a>
+                    </nav>
+                  </div>
+                </td>
+          </tr>
+      </ng-container>
+  </tbody>
+</table>
+
+<ng-template #noDataAvailable>
+  <div role="status">
+      <span>Loading...</span>
+
+  </div>
+</ng-template>
